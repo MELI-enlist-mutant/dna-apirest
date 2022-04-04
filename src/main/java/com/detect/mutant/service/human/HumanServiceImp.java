@@ -69,10 +69,7 @@ public class HumanServiceImp implements IHumanService {
         long dnas = humanList.stream()
                 .filter(actualHuman -> Arrays.equals(actualHuman.getDna(), dna.getDna()))
                 .count();
-        if (dnas > 0) {
-            return true;
-        }
-        return false;
+        return dnas > 0;
 
     }
 
