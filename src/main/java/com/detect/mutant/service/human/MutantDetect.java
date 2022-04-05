@@ -92,16 +92,16 @@ public class MutantDetect {
     }
 
     public static boolean hasCorrectElements(List<String> dna) {
-        List<Character> validChars = Arrays.asList('A', 'T', 'C', 'G');
-        long count = dna.stream()
-                .filter(s -> s.length() == dna.size())
+        List<Character> validChars = Arrays.asList('A', 'C', 'G', 'T');
+        long counter = dna.stream()
+                .filter(elementList -> elementList.length() == dna.size())
                 .map(String::chars)
                 .flatMap(IntStream::boxed)
-                .map(i -> (char) i.intValue())
+                .map(elementChar -> (char) elementChar.intValue())
                 .filter(validChars::contains)
                 .count();
 
-        return count == ((long) dna.size() * dna.size());
+        return counter == ((long) dna.size() * dna.size());
     }
 
 }
