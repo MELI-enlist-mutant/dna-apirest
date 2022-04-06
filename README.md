@@ -66,7 +66,7 @@ Para utilizar la aplicación se debe acceder desde un cliente de apis de la sigu
 
 ### Post */mutant/* 
 Consultar si una secuencia de adn es mutante o no: se debe generar una petición de tipo **POST** al siguiente endpoint 
-```https://www.dna-apirest.herokuapp.com/mutant``` enviando como request la estructura del body:
+```https://dna-apirest.herokuapp.com/mutant``` enviando como request la estructura del body:
 ```
   {
     "dna": [
@@ -79,7 +79,7 @@ bad request si el dna no tiene el formato esperado.
 
 ### Get */stats/*
 Consultar las estadísticas de los humanos y mutantes guardados en base de datos. La url para la consulta es la siguiente:
-```https://www.dna-apirest.herokuapp.com/stats``` mediante el método **Get**.
+```https://dna-apirest.herokuapp.com/stats``` mediante el método **Get**.
 No requiere body ni params y retorna un objeto de tipo json con las estadísticas
 
 ```
@@ -92,7 +92,7 @@ No requiere body ni params y retorna un objeto de tipo json con las estadística
 ### Documentación del API
 Para mayor claridad y entendimiento del api se realizó una documentación mediante swagger UI.
 A continuación se deja el link para su acceso, además desde el mismo swagger se puede probar las funcionalidades del api.
-```https://www.dna-apirest.herokuapp.com/swagger-ui.html```
+```https://dna-apirest.herokuapp.com/swagger-ui.html```
 
 ### Test automáticos
 La aplicación cuenta con JUnit test por encima del 80% de covertura:
