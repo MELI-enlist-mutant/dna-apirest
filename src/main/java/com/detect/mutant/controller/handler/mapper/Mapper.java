@@ -13,7 +13,7 @@ public class Mapper {
 
     public static Human toDTO(HumanData humanData) {
         return Human.builder()
-                .dna(humanData.getDna())
+                .dna(humanData.getDnaSequence())
                 .isMutant(humanData.isMutant())
                 .createDate(humanData.getCreateDate())
                 .build();
@@ -21,7 +21,7 @@ public class Mapper {
 
     public static HumanData toModel(Human human) {
         return HumanData.builder()
-                .dna(human.getDna())
+                .dnaSequence(human.getDna())
                 .isMutant(human.isMutant())
                 .createDate(human.getCreateDate())
                 .build();
@@ -30,7 +30,7 @@ public class Mapper {
     public static List<Human> toDTOList(List<HumanData> humanDataList) {
         return humanDataList.stream()
                 .map(s -> Human.builder()
-                        .dna(s.getDna())
+                        .dna(s.getDnaSequence())
                         .isMutant(s.isMutant())
                         .createDate(s.getCreateDate())
                         .build())

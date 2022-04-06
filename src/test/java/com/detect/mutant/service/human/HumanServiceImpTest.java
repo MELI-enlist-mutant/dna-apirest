@@ -1,6 +1,6 @@
 package com.detect.mutant.service.human;
 
-import com.detect.mutant.controller.dto.DNA;
+import com.detect.mutant.controller.dto.DnaSequence;
 import com.detect.mutant.controller.handler.exception.DnaBadRequestException;
 import com.detect.mutant.controller.handler.message.GlobalMessage;
 import com.detect.mutant.model.HumanData;
@@ -27,30 +27,30 @@ class HumanServiceImpTest {
     private HumanServiceImp humanServiceImp;
     private HumanData mutantExpected;
     private HumanData humanExpected;
-    private DNA dnaMutant;
-    private DNA dnaHuman;
-    private DNA dnaHumanBad2;
+    private DnaSequence dnaMutant;
+    private DnaSequence dnaHuman;
+    private DnaSequence dnaHumanBad2;
     private List<HumanData> humanList;
 
     @BeforeEach
     void setUp() {
         humanServiceImp = new HumanServiceImp(iHumanRepository, mutantDetect);
-        dnaMutant = DNA.builder()
+        dnaMutant = DnaSequence.builder()
                 .dna(new String[]{"ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"})
                 .build();
-        dnaHuman = DNA.builder()
+        dnaHuman = DnaSequence.builder()
                 .dna(new String[]{"GTGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCACTA", "TCACTG"})
                 .build();
-        dnaHumanBad2 = DNA.builder()
+        dnaHumanBad2 = DnaSequence.builder()
                 .dna(new String[]{"TTGCGA", "CAGTCCC", "TTATGT", "AGAAGG", "CCCTTA", "TCACTG"})
                 .build();
         mutantExpected = HumanData.builder()
-                .dna(dnaMutant.getDna())
+                .dnaSequence(dnaMutant.getDna())
                 .isMutant(true)
                 .createDate(LocalDateTime.now())
                 .build();
         humanExpected = HumanData.builder()
-                .dna(dnaHuman.getDna())
+                .dnaSequence(dnaHuman.getDna())
                 .isMutant(false)
                 .createDate(LocalDateTime.now())
                 .build();
@@ -91,7 +91,7 @@ class HumanServiceImpTest {
                 Assertions.assertThrows(DnaBadRequestException.class, () -> {
                     humanServiceImp.isMutant(dnaHumanBad2);
                 });
-        Assertions.assertEquals(e.getMessage(), GlobalMessage.ERROR_NOT_CORRECT_CHARS);
+        Assertions.assertEquals(GlobalMessage.ERROR_NOT_CORRECT_CHARS, e.getMessage());
 
     }
 

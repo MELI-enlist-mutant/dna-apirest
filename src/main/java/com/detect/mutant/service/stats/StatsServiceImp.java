@@ -12,11 +12,14 @@ public class StatsServiceImp implements IStatsService {
     private IHumanRepository iHumanRepository;
 
     @Override
-    public Statistics getStats(){
+    public Statistics getStats() {
 
         double countHuman = countHuman();
         double countMutant = countMutant();
-        double ratio = countHuman > 0 ? countMutant / countHuman:0.0;
+
+        double ratioDouble = countHuman > 0 ? countMutant / countHuman : 0.0;
+        String ratioString = String.format("%.3f", ratioDouble);
+        double ratio = Double.parseDouble(ratioString);
 
         return new Statistics().toBuilder()
                 .countHumanDna((long) countHuman)
@@ -26,12 +29,12 @@ public class StatsServiceImp implements IStatsService {
     }
 
     @Override
-    public long countMutant(){
+    public long countMutant() {
         return (long) iHumanRepository.countByIsMutantTrue();
     }
 
     @Override
-    public long countHuman(){
+    public long countHuman() {
         return (long) iHumanRepository.countByIsMutantFalse();
     }
 }

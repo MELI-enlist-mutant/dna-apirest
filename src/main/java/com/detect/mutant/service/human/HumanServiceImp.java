@@ -1,6 +1,6 @@
 package com.detect.mutant.service.human;
 
-import com.detect.mutant.controller.dto.DNA;
+import com.detect.mutant.controller.dto.DnaSequence;
 import com.detect.mutant.controller.dto.Human;
 import com.detect.mutant.controller.handler.exception.DnaBadRequestException;
 import com.detect.mutant.controller.handler.mapper.Mapper;
@@ -20,23 +20,23 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class HumanServiceImp implements IHumanService {
 
-    private final IHumanRepository IHumanRepository;
+    private final IHumanRepository iHumanRepository;
     private final MutantDetect mutantDetect;
     private static final String TIME_ZONE = "America/Bogota";
 
     @Override
     public Human saveHuman(Human human) {
         HumanData humanData = Mapper.toModel(human);
-        return Mapper.toDTO(this.IHumanRepository.save(humanData));
+        return Mapper.toDTO(this.iHumanRepository.save(humanData));
     }
 
     @Override
     public List<Human> findAllDna() {
-        return Mapper.toDTOList(this.IHumanRepository.findAll());
+        return Mapper.toDTOList(this.iHumanRepository.findAll());
     }
 
     @Override
-    public boolean isMutant(DNA dnaObject) throws DnaBadRequestException{
+    public boolean isMutant(DnaSequence dnaObject) throws DnaBadRequestException {
         String[] dnaArray = dnaObject.getDna();
         String error = GlobalMessage.ERROR_BAD_REQUEST;
         try {
@@ -46,8 +46,8 @@ public class HumanServiceImp implements IHumanService {
                     .collect(Collectors.toList());
             if (!MutantDetect.hasCorrectElements(dna)) {
                 error = GlobalMessage.ERROR_NOT_CORRECT_CHARS;
-                throw new Exception();
-            } else {
+                throw new DnaBadRequestException(GlobalMessage.ERROR_NOT_CORRECT_CHARS);
+            }
                 boolean isMutant = this.mutantDetect.isMutant(dna);
                 if (!existDna(dnaObject)) {
                     saveHuman(new Human().toBuilder()
@@ -58,13 +58,13 @@ public class HumanServiceImp implements IHumanService {
                 }
 
                 return isMutant;
-            }
+
         } catch (Exception e) {
             throw new DnaBadRequestException(error);
         }
     }
 
-    private boolean existDna(DNA dna) {
+    private boolean existDna(DnaSequence dna) {
         List<Human> humanList = findAllDna();
         long dnas = humanList.stream()
                 .filter(actualHuman -> Arrays.equals(actualHuman.getDna(), dna.getDna()))

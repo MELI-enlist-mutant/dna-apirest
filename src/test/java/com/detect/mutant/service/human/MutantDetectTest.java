@@ -1,6 +1,6 @@
 package com.detect.mutant.service.human;
 
-import com.detect.mutant.controller.dto.DNA;
+import com.detect.mutant.controller.dto.DnaSequence;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,25 +25,24 @@ class MutantDetectTest {
 
         mutantDetect=new MutantDetect();
 
-        DNA dnaMutant = DNA.builder()
+        DnaSequence dnaMutant = DnaSequence.builder()
                 .dna(new String[]{"ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"})
                 .build();
-        DNA dnaMutant2 = DNA.builder()
+        DnaSequence dnaMutant2 = DnaSequence.builder()
                 .dna(new String[]{"AAAAGA", "AAGTGC", "ATATGT", "AGAAGG", "CCCCTA", "TCACTG"})
                 .build();
-        DNA dnaMutant3 = DNA.builder()
+        DnaSequence dnaMutant3 = DnaSequence.builder()
                 .dna(new String[]{"TTGCGA", "CACTGC", "TCATGT", "CGAAGG", "CTCCTA", "TCTATT"})
                 .build();
-        DNA dnaHuman = DNA.builder()
+        DnaSequence dnaHuman = DnaSequence.builder()
                 .dna(new String[]{"TTGCGA", "CAGTGC", "TTATGT", "AGAAAG", "CTCCTA", "TCACTG"})
                 .build();
-        DNA dnaHumanBad = DNA.builder()
+        DnaSequence dnaHumanBad = DnaSequence.builder()
                 .dna(new String[]{"TTGCGA", "CAGTCCC", "TTATGT", "AGAAGG", "CCCTTA", "TCACTG"})
                 .build();
-        DNA dnaSmall = DNA.builder()
+        DnaSequence dnaSmall = DnaSequence.builder()
                 .dna(new String[]{"GTG", "CAG", "TTA"})
                 .build();
-
 
         dnaSmallList = Arrays.asList(dnaSmall.getDna());
         dnaMutantList = Arrays.asList(dnaMutant.getDna());

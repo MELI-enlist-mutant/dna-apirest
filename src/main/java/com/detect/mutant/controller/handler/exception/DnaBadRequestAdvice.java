@@ -12,7 +12,7 @@ public class DnaBadRequestAdvice {
     @ResponseBody
     @ExceptionHandler(DnaBadRequestException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    String EntityNotFoundAdvice(DnaBadRequestException ex){
+    String entityBadRequestAdvice(DnaBadRequestException ex){
         return ex.getMessage();
     }
 }

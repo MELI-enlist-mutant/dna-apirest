@@ -19,10 +19,9 @@ import java.time.LocalDateTime;
 public class HumanData {
 
     private static final String ID="id";
-    private static final String DNA="dna";
+    private static final String DNA="dna_sequence";
     private static final String IS_MUTANT="is_mutant";
     private static final String CREATE_DATE="create_date";
-
 
     @Id
     @Field(ID)
@@ -30,7 +29,7 @@ public class HumanData {
 
     @Field(DNA)
     @Indexed(unique=true)
-    private String[] dna;
+    private String[] dnaSequence;
 
     @Field(IS_MUTANT)
     private boolean isMutant;

@@ -1,6 +1,6 @@
 package com.detect.mutant.controller;
 
-import com.detect.mutant.controller.dto.DNA;
+import com.detect.mutant.controller.dto.DnaSequence;
 import com.detect.mutant.controller.handler.exception.DnaBadRequestException;
 import com.detect.mutant.controller.handler.message.GlobalMessage;
 import com.detect.mutant.service.human.HumanServiceImp;
@@ -17,9 +17,9 @@ class HumanControllerTest {
 
     private HumanController humanController;
     private final HumanServiceImp humanServiceImp = Mockito.mock(HumanServiceImp.class);
-    private DNA dnaMutant;
-    private DNA dnaHuman;
-    private DNA dnaHumanBad;
+    private DnaSequence dnaMutant;
+    private DnaSequence dnaHuman;
+    private DnaSequence dnaHumanBad;
     private ResponseEntity<String> responseEntityMutantExpected;
     private ResponseEntity<String> responseEntityHumanExpected;
 
@@ -27,13 +27,13 @@ class HumanControllerTest {
     @BeforeEach
     void setUp() {
         humanController = new HumanController(humanServiceImp);
-        dnaMutant = DNA.builder()
+        dnaMutant = DnaSequence.builder()
                 .dna(new String[]{"ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"})
                 .build();
-        dnaHuman = DNA.builder()
+        dnaHuman = DnaSequence.builder()
                 .dna(new String[]{"TTGCGA","CAGTGC","TTATGT","AGAAAG","CTCCTA","TCACTG"})
                 .build();
-        dnaHumanBad = DNA.builder()
+        dnaHumanBad = DnaSequence.builder()
                 .dna(new String[]{"TTGCGAA","CAGTGC","TTATGT","AGAAAG","CTCCTA","TCACTG"})
                 .build();
 
@@ -66,7 +66,7 @@ class HumanControllerTest {
                 Assertions.assertThrows(DnaBadRequestException.class, () -> {
                     humanServiceImp.isMutant(dnaHumanBad);
                 });
-        Assertions.assertEquals(e.getMessage(), GlobalMessage.ERROR_NOT_CORRECT_CHARS);
+        Assertions.assertEquals(GlobalMessage.ERROR_NOT_CORRECT_CHARS, e.getMessage());
     }
 
 }

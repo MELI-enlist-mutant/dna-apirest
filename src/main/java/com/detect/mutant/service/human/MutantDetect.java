@@ -9,45 +9,42 @@ import java.util.stream.IntStream;
 @Service
 public class MutantDetect {
 
+    private static final int SEQUENCE_LEN=4;
+
     public boolean isMutant(List<String> array) {
         int sequenceCounter = 0;
-        int sequenceLen = 4;
 
         if (array.size() < 4) {
             return false;
         }
         for (int i = 0; i < array.size(); i++) {
             for (int j = 0; j < array.get(i).length(); j++) {
-                if (hasRightSequence(sequenceLen, i, j, array)) {
+                if (hasRightSequence(i, j, array)) {
                     sequenceCounter++;
                 }
-                if (hasDownSequence(sequenceLen, i, j, array)) {
+                if (hasDownSequence(i, j, array)) {
                     sequenceCounter++;
                 }
-                if (hasDiagonalSequence(sequenceLen, i, j, array)) {
+                if (hasDiagonalSequence(i, j, array)) {
                     sequenceCounter++;
                 }
-                if (hasDiagonalInverseSequence(sequenceLen, i, j, array)) {
+                if (hasDiagonalInverseSequence(i, j, array)) {
                     sequenceCounter++;
                 }
-
                 if (sequenceCounter > 1) {
-                    System.out.println(sequenceCounter);
                     return true;
                 }
             }
 
         }
-        System.out.println(sequenceCounter);
-
         return false;
     }
 
-    private boolean hasRightSequence(int sequenceLen, int row, int column, List<String> array) {
-        if (column >= array.size() - (sequenceLen - 1)) {
+    private boolean hasRightSequence(int row, int column, List<String> array) {
+        if (column >= array.size() - (SEQUENCE_LEN - 1)) {
             return false;
-        }//crear sequenceLen=4
-        for (int k = 1; k < sequenceLen; k++) {
+        }
+        for (int k = 1; k < SEQUENCE_LEN; k++) {
             if (array.get(row).charAt(column) != array.get(row).charAt(column + k)) {
                 return false;
             }
@@ -55,11 +52,11 @@ public class MutantDetect {
         return true;
     }
 
-    private boolean hasDownSequence(int sequenceLen, int row, int column, List<String> array) {
-        if (row >= array.size() - (sequenceLen - 1)) {
+    private boolean hasDownSequence(int row, int column, List<String> array) {
+        if (row >= array.size() - (SEQUENCE_LEN - 1)) {
             return false;
         }
-        for (int k = 1; k < sequenceLen; k++) {
+        for (int k = 1; k < SEQUENCE_LEN; k++) {
             if (array.get(row).charAt(column) != array.get(row + k).charAt(column)) {
                 return false;
             }
@@ -67,11 +64,11 @@ public class MutantDetect {
         return true;
     }
 
-    private boolean hasDiagonalSequence(int sequenceLen, int row, int column, List<String> array) {
-        if (row >= array.size() - (sequenceLen - 1) || column >= array.size() - (sequenceLen - 1)) {
+    private boolean hasDiagonalSequence(int row, int column, List<String> array) {
+        if (row >= array.size() - (SEQUENCE_LEN - 1) || column >= array.size() - (SEQUENCE_LEN - 1)) {
             return false;
         }
-        for (int k = 1; k < sequenceLen; k++) {
+        for (int k = 1; k < SEQUENCE_LEN; k++) {
             if (array.get(row).charAt(column) != array.get(row + k).charAt(column + k)) {
                 return false;
             }
@@ -79,11 +76,11 @@ public class MutantDetect {
         return true;
     }
 
-    private boolean hasDiagonalInverseSequence(int sequenceLen, int row, int column, List<String> array) {
-        if (row >= array.size() - (sequenceLen - 1) || column < sequenceLen - 1) {
+    private boolean hasDiagonalInverseSequence(int row, int column, List<String> array) {
+        if (row >= array.size() - (SEQUENCE_LEN - 1) || column < SEQUENCE_LEN - 1) {
             return false;
         }
-        for (int k = 1; k < sequenceLen; k++) {
+        for (int k = 1; k < SEQUENCE_LEN; k++) {
             if (array.get(row).charAt(column) != array.get(row + k).charAt(column - k)) {
                 return false;
             }

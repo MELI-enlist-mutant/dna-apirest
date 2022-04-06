@@ -12,7 +12,7 @@
     <artifactId>mutant</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>mutant</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Proyecto para Magneto adn-apirest</description>
     <properties>
         <java.version>17</java.version>
     </properties>
