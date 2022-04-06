@@ -1,9 +1,11 @@
 package com.detect.mutant.controller;
 
 import com.detect.mutant.controller.dto.DnaSequence;
+import com.detect.mutant.controller.dto.ResponseObject;
 import com.detect.mutant.controller.handler.exception.DnaBadRequestException;
 import com.detect.mutant.controller.handler.message.GlobalMessage;
 import com.detect.mutant.service.human.HumanServiceImp;
+import com.google.gson.Gson;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,11 +19,13 @@ class HumanControllerTest {
 
     private HumanController humanController;
     private final HumanServiceImp humanServiceImp = Mockito.mock(HumanServiceImp.class);
+    private static final Gson gson = new Gson();
     private DnaSequence dnaMutant;
     private DnaSequence dnaHuman;
     private DnaSequence dnaHumanBad;
     private ResponseEntity<String> responseEntityMutantExpected;
     private ResponseEntity<String> responseEntityHumanExpected;
+
 
 
     @BeforeEach
@@ -37,8 +41,8 @@ class HumanControllerTest {
                 .dna(new String[]{"TTGCGAA","CAGTGC","TTATGT","AGAAAG","CTCCTA","TCACTG"})
                 .build();
 
-        responseEntityMutantExpected=ResponseEntity.ok(GlobalMessage.OK_MUTANT);
-        responseEntityHumanExpected=ResponseEntity.status(HttpStatus.FORBIDDEN).body(GlobalMessage.ERROR_FORBIDDEN);
+        responseEntityMutantExpected=ResponseEntity.ok(gson.toJson(ResponseObject.builder().message(GlobalMessage.OK_MUTANT).build()));
+        responseEntityHumanExpected=ResponseEntity.status(HttpStatus.FORBIDDEN).body(gson.toJson(ResponseObject.builder().message(GlobalMessage.ERROR_FORBIDDEN).build()));
 
     }
 

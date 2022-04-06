@@ -1,9 +1,11 @@
 package com.detect.mutant.controller;
 
 import com.detect.mutant.controller.dto.DnaSequence;
+import com.detect.mutant.controller.dto.ResponseObject;
 import com.detect.mutant.controller.handler.exception.DnaBadRequestException;
 import com.detect.mutant.controller.handler.message.GlobalMessage;
 import com.detect.mutant.service.human.HumanServiceImp;
+import com.google.gson.Gson;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -23,6 +25,8 @@ import org.springframework.web.bind.annotation.*;
 public class HumanController {
 
     private final HumanServiceImp humanServiceImp;
+    private static final Gson gson = new Gson();
+
 
     @Operation(summary = "Mutante o humano", description = "Recibe una secuencia de ADN y responde con un mensaje, ya " +
             "sea mutante (200) o humano (403)")
@@ -34,8 +38,8 @@ public class HumanController {
     })
     @PostMapping("mutant")
     public ResponseEntity<String> detectMutant(@RequestBody DnaSequence dna) throws DnaBadRequestException {
-        return this.humanServiceImp.isMutant(dna) ? ResponseEntity.ok(GlobalMessage.OK_MUTANT)
-                : ResponseEntity.status(HttpStatus.FORBIDDEN).body(GlobalMessage.ERROR_FORBIDDEN);
+        return this.humanServiceImp.isMutant(dna) ? ResponseEntity.ok(gson.toJson(ResponseObject.builder().message(GlobalMessage.OK_MUTANT).build()))
+                : ResponseEntity.status(HttpStatus.FORBIDDEN).body(gson.toJson(ResponseObject.builder().message(GlobalMessage.ERROR_FORBIDDEN).build()));
 
     }
 

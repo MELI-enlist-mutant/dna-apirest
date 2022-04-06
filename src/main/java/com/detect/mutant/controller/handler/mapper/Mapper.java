@@ -4,7 +4,6 @@ import com.detect.mutant.controller.dto.Human;
 import com.detect.mutant.model.HumanData;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Mapper {
 
@@ -34,6 +33,6 @@ public class Mapper {
                         .isMutant(s.isMutant())
                         .createDate(s.getCreateDate())
                         .build())
-                .collect(Collectors.toList());
+                .toList();
     }
 }

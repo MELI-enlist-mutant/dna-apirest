@@ -14,25 +14,24 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class HumanServiceImp implements IHumanService {
 
-    private final IHumanRepository iHumanRepository;
+    private final IHumanRepository humanRepository;
     private final MutantDetect mutantDetect;
     private static final String TIME_ZONE = "America/Bogota";
 
     @Override
     public Human saveHuman(Human human) {
         HumanData humanData = Mapper.toModel(human);
-        return Mapper.toDTO(this.iHumanRepository.save(humanData));
+        return Mapper.toDTO(this.humanRepository.save(humanData));
     }
 
     @Override
     public List<Human> findAllDna() {
-        return Mapper.toDTOList(this.iHumanRepository.findAll());
+        return Mapper.toDTOList(this.humanRepository.findAll());
     }
 
     @Override
@@ -43,7 +42,7 @@ public class HumanServiceImp implements IHumanService {
             List<String> dna = Arrays.asList(dnaArray);
             dna = dna.stream()
                     .map(String::toUpperCase)
-                    .collect(Collectors.toList());
+                    .toList();
             if (!MutantDetect.hasCorrectElements(dna)) {
                 error = GlobalMessage.ERROR_NOT_CORRECT_CHARS;
                 throw new DnaBadRequestException(GlobalMessage.ERROR_NOT_CORRECT_CHARS);

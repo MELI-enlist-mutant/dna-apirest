@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class StatsServiceImp implements IStatsService {
-    private IHumanRepository iHumanRepository;
+
+    private IHumanRepository humanRepository;
 
     @Override
     public Statistics getStats() {
@@ -30,11 +31,11 @@ public class StatsServiceImp implements IStatsService {
 
     @Override
     public long countMutant() {
-        return (long) iHumanRepository.countByIsMutantTrue();
+        return (long) humanRepository.countByIsMutantTrue();
     }
 
     @Override
     public long countHuman() {
-        return (long) iHumanRepository.countByIsMutantFalse();
+        return (long) humanRepository.countByIsMutantFalse();
     }
 }

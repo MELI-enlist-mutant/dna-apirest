@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 @Service
 public class MutantDetect {
 
-    private static final int SEQUENCE_LEN=4;
+    private static final int SEQUENCE_LEN = 4;
 
     public boolean isMutant(List<String> array) {
         int sequenceCounter = 0;
@@ -19,18 +19,9 @@ public class MutantDetect {
         }
         for (int i = 0; i < array.size(); i++) {
             for (int j = 0; j < array.get(i).length(); j++) {
-                if (hasRightSequence(i, j, array)) {
-                    sequenceCounter++;
-                }
-                if (hasDownSequence(i, j, array)) {
-                    sequenceCounter++;
-                }
-                if (hasDiagonalSequence(i, j, array)) {
-                    sequenceCounter++;
-                }
-                if (hasDiagonalInverseSequence(i, j, array)) {
-                    sequenceCounter++;
-                }
+
+                sequenceCounter += getNumberOfSequences(i, j, array);
+
                 if (sequenceCounter > 1) {
                     return true;
                 }
@@ -38,6 +29,18 @@ public class MutantDetect {
 
         }
         return false;
+    }
+
+    private int getNumberOfSequences(int row, int column, List<String> array) {
+
+        int internalCounter = 0;
+
+        internalCounter += hasRightSequence(row, column, array) ? 1 : 0;
+        internalCounter += hasDownSequence(row, column, array) ? 1 : 0;
+        internalCounter += hasDiagonalSequence(row, column, array) ? 1 : 0;
+        internalCounter += hasDiagonalInverseSequence(row, column, array) ? 1 : 0;
+
+        return internalCounter;
     }
 
     private boolean hasRightSequence(int row, int column, List<String> array) {

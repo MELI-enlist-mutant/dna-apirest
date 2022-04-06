@@ -54,19 +54,21 @@ FROM openjdk:17-jdk-alpine
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
-CMD gunicorn --bind 0.0.0.0:$PORT wsgi
 ```
 
 ### ☕ Lenguajes frameworks y librerías
 El proyecto se desarrolló usando el framework SpringBoot junto con la versión 17 de Java, Junit, Jacoco, lombok, Docker,
 Heroku y base de datos MongoDB (NO-SQL).
 
-## 🚀 Uso de la app
+## 🤖 Uso de la app
 Para utilizar la aplicación se debe acceder desde un cliente de apis de la siguiente manera:
 
 ### Post */mutant/* 
 Consultar si una secuencia de adn es mutante o no: se debe generar una petición de tipo **POST** al siguiente endpoint 
-```https://dna-apirest.herokuapp.com/mutant``` enviando como request la estructura del body:
+```https://dna-apirest.herokuapp.com/mutant``` enviando como request la estructura del body.
+
+``` Request ```
+
 ```
   {
     "dna": [
@@ -76,6 +78,18 @@ Consultar si una secuencia de adn es mutante o no: se debe generar una petición
 ```
 Y como respuesta se resivirá un Ok 200 si el adn es mutante, un 403 Forbidden, en caso de que sea humano y un 400 
 bad request si el dna no tiene el formato esperado.
+
+``` Response ```
+``` 
+{
+	"message": "Mutante!!! Bienvenido a Magneto Club"
+} 
+```
+```
+{
+	"message": "Humano!!! Fuera de acá"
+}
+```
 
 ### Get */stats/*
 Consultar las estadísticas de los humanos y mutantes guardados en base de datos. La url para la consulta es la siguiente:
@@ -95,6 +109,10 @@ A continuación se deja el link para su acceso, además desde el mismo swagger s
 ```https://dna-apirest.herokuapp.com/swagger-ui.html```
 
 ### Test automáticos
-La aplicación cuenta con JUnit test por encima del 80% de covertura:
+La aplicación cuenta con test automatizados con cobertura por encima del 80%.
 
 ![](src/main/resources/documents/automatedTest.png)
+
+### 👨🏽‍💻 Análisis de código
+Se utilizó la extensión **SonarLint** para identificar code smell y recomendaciones de mejora de calidad y seguridad del 
+código en general.
