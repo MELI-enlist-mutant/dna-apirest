@@ -116,3 +116,20 @@ La aplicación cuenta con test automatizados con cobertura por encima del 80%.
 ### 👨🏽‍💻 Análisis de código
 Se utilizó la extensión **SonarLint** para identificar code smell y recomendaciones de mejora de calidad y seguridad del 
 código en general.
+
+### 🔨 Pruebas de redimiento JMeter
+![](src/main/resources/documents/jmeter.png)
+
+Se realizaron pruebas de rendimiento de la aplicación, recibiendo tráfico de peticiones por segundo, se probó desde
+100 usuarios por segundo hasta 3000, respondiendo correctamente la aplicación **2100** sin presentar error en la petición.
+
+#### Http Get
+![](src/main/resources/documents/jmeterGetT.png)
+![](src/main/resources/documents/jmeterGetSummary.png)
+
+#### Http Post
+![](src/main/resources/documents/jmeterPostT.png)
+
+
+
+
